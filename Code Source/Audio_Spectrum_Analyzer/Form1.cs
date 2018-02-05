@@ -46,9 +46,9 @@ namespace Audio_Spectrum_Analyzer
             fractalGraphics = fractalDisplayPanel.CreateGraphics();
             fractalStartX = fractalPanel.Width / 2;
             fractalStartY = fractalPanel.Height / 2;
-            getFractalDisplayPanel().Refresh();
             for (int i = 0; i < fractalNumberOfLines; i++)
                 drawLine();
+            getFractalDisplayPanel().Refresh();
         }
 
         private void drawLine()
