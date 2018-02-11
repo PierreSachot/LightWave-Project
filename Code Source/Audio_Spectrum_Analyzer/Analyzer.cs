@@ -29,12 +29,18 @@ namespace Audio_Spectrum_Analyzer
         private int devindex;               //used device index
         private Chart _chart;
 
-        private Form1 parent;
+        private Form parent;
 
         private int _lines = 64;        // number of spectrum lines
 
+
+        [DllImport("winmm.dll")]
+        public static extern long waveOutGetVolume(UInt32 deviceID, out UInt32 Volume);
+
+        // fonction qui utilise la fonction système waveOutGetVolume et qui renvoie un tableau de deux entiers : [volumeGauche, volumeDroit]
+
         //ctor
-        public Analyzer(Form1 parent, ProgressBar left, ProgressBar right, Spectrum spectrum, ComboBox devicelist, Chart chart)
+        public Analyzer(Form parent, ProgressBar left, ProgressBar right, Spectrum spectrum, ComboBox devicelist, Chart chart)
         {
             _fft = new float[8192];
             _lastlevel = 0;
@@ -114,6 +120,23 @@ namespace Audio_Spectrum_Analyzer
             }
         }
 
+        public static int[] GetVolume()
+        {
+            UInt32 idPeripherique = 0; // zéro pour la carte principale
+            UInt32 volume;
+
+            long result = waveOutGetVolume(idPeripherique, out volume);
+
+            // ici, verifier le code de retour de result pour etre clean (voir les codes de retour sur la page de Microsoft)
+            // on part du principe que c'est bon pour l'exemple...
+
+            int volumeGauche = (int)(volume & 0xFFFF);                  // on ne garde que les 2 octets de poids faible par masquage    
+            int volumeDroit = (int)((volume & 0xFFFF0000) >> 16);  // on ne garde que les 2 octets de poids fort par masquage et decalage     
+
+            return new int[] { volumeGauche, volumeDroit };
+        } 
+
+
         // initialization
         private void Init()
         {
@@ -164,7 +187,14 @@ namespace Audio_Spectrum_Analyzer
             {
                 if (i == 30 && _spectrumdata[i] > (255 * device.AudioMeterInformation.MasterPeakValue) / 0.35)
                 {
-                    parent.generateFractal();
+                    if(parent.GetType() == typeof(Form1))
+                    {
+                        ((Form1)parent).generateFractal();
+                    }
+                    if(parent.GetType() == typeof(ShockWavePLayer))
+                    {
+                        ((ShockWavePLayer)parent).playVideo();
+                    }
                 }
                 try
                 {
@@ -211,6 +241,11 @@ namespace Audio_Spectrum_Analyzer
         private int Process(IntPtr buffer, int length, IntPtr user)
         {
             return length;
+        }
+
+        public void setParent(Form parent)
+        {
+            this.parent = parent;
         }
 
         //cleanup

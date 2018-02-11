@@ -21,10 +21,13 @@ namespace Audio_Spectrum_Analyzer
         private int selectedIndex = 0;
         private Size formSize;
         private Size panelSize;
+        private bool isInFullScreen;
 
         public ShockWavePLayer()
         {
             InitializeComponent();
+            this.BackColor = Color.Black;
+            pnlVideo.BackColor = Color.Black;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -36,15 +39,12 @@ namespace Audio_Spectrum_Analyzer
 
         private void ShockWavePLayer_Load(object sender, EventArgs e)
         {
+            isInFullScreen = false;
             formSize = new Size(this.Width, this.Height);
             panelSize = new Size(pnlVideo.Width, pnlVideo.Height);
             try
             {
                 shockwavePath = Directory.GetFiles(folderPath, "*.wmv");
-                foreach (string bob in shockwavePath)
-                {
-                    Console.WriteLine(bob);
-                }
                 if (shockwavePath != null)
                 {
                     foreach (string path in shockwavePath)
@@ -59,7 +59,23 @@ namespace Audio_Spectrum_Analyzer
             {
 
             }
-            
+        }
+
+        public void playVideo()
+        {
+            video.Play();
+            Task.Factory.StartNew(() =>
+            {
+                System.Threading.Thread.Sleep(2000);
+
+                if (InvokeRequired)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        NextVideo();
+                    }));
+                }
+            });
         }
 
         private void lstVideos_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,7 +89,14 @@ namespace Audio_Spectrum_Analyzer
             selectedIndex = lstVideos.SelectedIndex;
             video = new Video(shockwavePath[selectedIndex], false);
             video.Owner = pnlVideo;
-            pnlVideo.Size = panelSize;
+            if (isInFullScreen)
+            {
+                setInFullScreen();
+            }
+            else
+            {
+                pnlVideo.Size = panelSize;
+            }
             video.Play();
             tmrVideo.Enabled = true;
             btnPlayPause.Text = "Pause";
@@ -83,7 +106,7 @@ namespace Audio_Spectrum_Analyzer
 
         private void Video_Ending(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(() =>
+            /*Task.Factory.StartNew(() =>
             {
                 System.Threading.Thread.Sleep(2000);
 
@@ -94,7 +117,7 @@ namespace Audio_Spectrum_Analyzer
                         NextVideo();
                     }));
                 }
-            });
+            });*/
         }
 
         private void NextVideo()
@@ -145,12 +168,18 @@ namespace Audio_Spectrum_Analyzer
 
         private void btnFullscreen_Click(object sender, EventArgs e)
         {
+            setInFullScreen();
+            isInFullScreen = true;
+        }
+
+        private void setInFullScreen()
+        {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
             video.Owner = this;
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void shockWave_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -160,6 +189,7 @@ namespace Audio_Spectrum_Analyzer
                 this.Size = formSize;
                 video.Owner = pnlVideo;
                 pnlVideo.Size = panelSize;
+                isInFullScreen = false;
             }
         }
 

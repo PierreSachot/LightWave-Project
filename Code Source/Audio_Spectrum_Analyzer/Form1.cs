@@ -93,6 +93,7 @@ namespace Audio_Spectrum_Analyzer
         private void button1_Click_1(object sender, EventArgs e)
         {
             ShockWavePLayer shockwavePlayer = new ShockWavePLayer();
+            analyzer.setParent(shockwavePlayer);
             shockwavePlayer.ShowDialog();
             this.Hide();
         }

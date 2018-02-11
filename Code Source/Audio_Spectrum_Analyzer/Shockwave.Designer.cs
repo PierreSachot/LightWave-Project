@@ -65,6 +65,7 @@
             this.btnVolume.TabIndex = 29;
             this.btnVolume.Text = "Volume";
             this.btnVolume.UseVisualStyleBackColor = true;
+            this.btnVolume.Click += new System.EventHandler(this.btnVolume_Click);
             // 
             // trackVolume
             // 
@@ -77,6 +78,7 @@
             this.trackVolume.TabIndex = 28;
             this.trackVolume.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackVolume.Visible = false;
+            this.trackVolume.Scroll += new System.EventHandler(this.trackVolume_Scroll);
             // 
             // btnNext
             // 
@@ -87,6 +89,7 @@
             this.btnNext.TabIndex = 27;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnPrevious
             // 
@@ -97,6 +100,7 @@
             this.btnPrevious.TabIndex = 26;
             this.btnPrevious.Text = "Previous";
             this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // lblVideoPosition
             // 
@@ -118,6 +122,7 @@
             this.btnPlayPause.TabIndex = 24;
             this.btnPlayPause.Text = "Play/Pause";
             this.btnPlayPause.UseVisualStyleBackColor = true;
+            this.btnPlayPause.Click += new System.EventHandler(this.btnPlayPause_Click);
             // 
             // btnFullscreen
             // 
@@ -128,6 +133,7 @@
             this.btnFullscreen.TabIndex = 23;
             this.btnFullscreen.Text = "Fullscreen";
             this.btnFullscreen.UseVisualStyleBackColor = true;
+            this.btnFullscreen.Click += new System.EventHandler(this.btnFullscreen_Click);
             // 
             // lstVideos
             // 
@@ -178,8 +184,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "ShockWavePLayer";
-            this.Text = "ShockWave Menu";
+            this.Text = "ShockWave";
             this.Load += new System.EventHandler(this.ShockWavePLayer_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.shockWave_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
