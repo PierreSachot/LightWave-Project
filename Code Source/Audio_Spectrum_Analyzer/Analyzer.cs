@@ -120,15 +120,12 @@ namespace Audio_Spectrum_Analyzer
             }
         }
 
-        public static int[] GetVolume()
+        public static int[] GetVolume(int devinde)
         {
-            UInt32 idPeripherique = 0; // zéro pour la carte principale
+            UInt32 idPeripherique = (UInt32)devinde; // zéro pour la carte principale
             UInt32 volume;
 
             long result = waveOutGetVolume(idPeripherique, out volume);
-
-            // ici, verifier le code de retour de result pour etre clean (voir les codes de retour sur la page de Microsoft)
-            // on part du principe que c'est bon pour l'exemple...
 
             int volumeGauche = (int)(volume & 0xFFFF);                  // on ne garde que les 2 octets de poids faible par masquage    
             int volumeDroit = (int)((volume & 0xFFFF0000) >> 16);  // on ne garde que les 2 octets de poids fort par masquage et decalage     
@@ -177,6 +174,13 @@ namespace Audio_Spectrum_Analyzer
                     if (peak < _fft[1 + b0]) peak = _fft[1 + b0];
                 }
                 y = (int)(Math.Sqrt(peak) * 3 * 255 - 4);
+                /*if (y > 0)
+                {
+                    int volumeGauche = GetVolume()[1];
+                    Console.WriteLine(volumeGauche);
+                    y = (y * volumeGauche) / y;
+                }*/
+                int volumeGauche = GetVolume(devindex)[0];
                 if (y > 255) y = 255;
                 if (y < 0) y = 0;
                 _spectrumdata.Add((byte)y);
@@ -185,7 +189,7 @@ namespace Audio_Spectrum_Analyzer
             if (DisplayEnable) _spectrum.Set(_spectrumdata);
             for (int i = 0; i < _spectrumdata.ToArray().Length; i++)
             {
-                if (i == 30 && _spectrumdata[i] > (255 * device.AudioMeterInformation.MasterPeakValue) / 0.35)
+                if (i == 18 && _spectrumdata[i] > 60)
                 {
                     if(parent.GetType() == typeof(Form1))
                     {

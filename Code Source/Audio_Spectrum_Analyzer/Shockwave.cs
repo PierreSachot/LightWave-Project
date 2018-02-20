@@ -28,6 +28,20 @@ namespace Audio_Spectrum_Analyzer
             InitializeComponent();
             this.BackColor = Color.Black;
             pnlVideo.BackColor = Color.Black;
+            lstVideos.BackColor = Color.Black;
+            lstVideos.ForeColor = Color.White;
+            btnFullscreen.BackColor = Color.Black;
+            btnFullscreen.ForeColor = Color.White;
+            btnNext.BackColor = Color.Black;
+            btnNext.ForeColor = Color.White;
+            btnPlayPause.BackColor = Color.Black;
+            btnPlayPause.ForeColor = Color.White;
+            btnPrevious.BackColor = Color.Black;
+            btnPrevious.ForeColor = Color.White;
+            btnVolume.BackColor = Color.Black;
+            btnVolume.ForeColor = Color.White;
+            lblVideoPosition.BackColor = Color.Black;
+            lblVideoPosition.ForeColor = Color.White;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

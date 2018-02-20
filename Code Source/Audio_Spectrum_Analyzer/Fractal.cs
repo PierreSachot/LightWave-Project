@@ -11,44 +11,45 @@ namespace Audio_Spectrum_Analyzer
     {
         //fractal elements
         private Pen myPen;
-        private Panel monPanel;
+        private Panel myPanel;
         private Graphics fractalGraphics = null;
-        private int startX, startY, endX, endY, numberOfLines, angle = 0, length = 0, increment = 0;
         private bool isRainbow;
 
-        public Fractal(Panel monPanel, int length, int angle, int increment, int numberOfLines, bool isRainbow, int startX, int startY)
+        public Fractal(Panel myPanel)
         {
             this.myPen = new Pen(Color.Black);
-            this.monPanel = monPanel;
-            this.numberOfLines = numberOfLines;
-            this.angle = angle;
-            this.length = length;
-            this.increment = increment;
-            this.isRainbow = isRainbow;
-            this.startX = startX;
-            this.startY = startY;
+            this.myPanel = myPanel;
+            this.myPanel.BackColor = Color.Black;
+            this.myPen.Width = 1;
+            isRainbow = true;
         }
 
-        public void drawFractal()
+        public void generateFractal(int fractalAngle, int fractalIncrement, int fractalNumberOfLines, int fractalLength)
         {
-            myPen.Width = 1;
-            fractalGraphics = monPanel.CreateGraphics();
+            int angle = fractalAngle;
+            int length = fractalLength;
+            int numberOfLines = fractalNumberOfLines;
+            myPen.Width = 2;
+            fractalGraphics = myPanel.CreateGraphics();
+            int startX = myPanel.Width / 2;
+            int startY = myPanel.Height / 2;
             for (int i = 0; i < numberOfLines; i++)
-                drawLine();
+                drawLine(ref angle, fractalAngle, fractalIncrement, ref length, fractalLength, ref startX, ref startY);
+            myPanel.Refresh();
         }
 
-        private void drawLine()
+        private void drawLine(ref int fractalAngleToChange, int fractalAngle, int fractalIncrement, ref int fractalLengthToChange, int fractalLength, ref int startX, ref int startY)
         {
             if (isRainbow)
             {
                 Random alea = new Random();
                 myPen.Color = Color.FromArgb(alea.Next(255), alea.Next(255), alea.Next(255));
             }
-            angle += angle;
-            length += increment;
+            fractalAngleToChange += fractalAngle;
+            fractalLengthToChange += fractalLength;
 
-            endX = (int)(startX + Math.Cos(angle * .017453292519) * length);
-            endY = (int)(startY + Math.Sin(angle * .017453292519) * length);
+            int endX = (int)(startX + Math.Cos(fractalAngleToChange * .017453292519) * fractalLengthToChange);
+            int endY = (int)(startY + Math.Sin(fractalAngleToChange * .017453292519) * fractalLengthToChange);
 
             Point[] points = 
             {

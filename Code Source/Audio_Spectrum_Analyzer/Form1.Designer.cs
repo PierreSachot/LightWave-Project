@@ -62,10 +62,9 @@
             // 
             // goButton
             // 
-            this.goButton.Location = new System.Drawing.Point(763, 9);
-            this.goButton.Margin = new System.Windows.Forms.Padding(4);
+            this.goButton.Location = new System.Drawing.Point(572, 7);
             this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(100, 28);
+            this.goButton.Size = new System.Drawing.Size(75, 23);
             this.goButton.TabIndex = 8;
             this.goButton.Text = "Go";
             this.goButton.UseVisualStyleBackColor = true;
@@ -73,40 +72,36 @@
             // 
             // incrementTextBox
             // 
-            this.incrementTextBox.Location = new System.Drawing.Point(665, 11);
-            this.incrementTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.incrementTextBox.Location = new System.Drawing.Point(499, 9);
             this.incrementTextBox.Name = "incrementTextBox";
-            this.incrementTextBox.Size = new System.Drawing.Size(56, 22);
+            this.incrementTextBox.Size = new System.Drawing.Size(43, 20);
             this.incrementTextBox.TabIndex = 7;
             this.incrementTextBox.Text = "1";
             this.incrementTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lengthTextBox
             // 
-            this.lengthTextBox.Location = new System.Drawing.Point(471, 11);
-            this.lengthTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.lengthTextBox.Location = new System.Drawing.Point(353, 9);
             this.lengthTextBox.Name = "lengthTextBox";
-            this.lengthTextBox.Size = new System.Drawing.Size(56, 22);
+            this.lengthTextBox.Size = new System.Drawing.Size(43, 20);
             this.lengthTextBox.TabIndex = 6;
-            this.lengthTextBox.Text = "50";
+            this.lengthTextBox.Text = "10";
             this.lengthTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // angleTextBox
             // 
-            this.angleTextBox.Location = new System.Drawing.Point(272, 11);
-            this.angleTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.angleTextBox.Location = new System.Drawing.Point(204, 9);
             this.angleTextBox.Name = "angleTextBox";
-            this.angleTextBox.Size = new System.Drawing.Size(56, 22);
+            this.angleTextBox.Size = new System.Drawing.Size(43, 20);
             this.angleTextBox.TabIndex = 5;
-            this.angleTextBox.Text = "96";
+            this.angleTextBox.Text = "192";
             this.angleTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // linesTextBox
             // 
-            this.linesTextBox.Location = new System.Drawing.Point(111, 11);
-            this.linesTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.linesTextBox.Location = new System.Drawing.Point(83, 9);
             this.linesTextBox.Name = "linesTextBox";
-            this.linesTextBox.Size = new System.Drawing.Size(56, 22);
+            this.linesTextBox.Size = new System.Drawing.Size(43, 20);
             this.linesTextBox.TabIndex = 4;
             this.linesTextBox.Text = "100";
             this.linesTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -116,10 +111,9 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label6.Location = new System.Drawing.Point(557, 12);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(418, 10);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 20);
+            this.label6.Size = new System.Drawing.Size(75, 16);
             this.label6.TabIndex = 3;
             this.label6.Text = "Increment";
             // 
@@ -128,10 +122,9 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(391, 12);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(293, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 20);
+            this.label5.Size = new System.Drawing.Size(54, 16);
             this.label5.TabIndex = 2;
             this.label5.Text = "Length";
             // 
@@ -140,21 +133,19 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label3.Location = new System.Drawing.Point(27, 12);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(20, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 20);
+            this.label3.Size = new System.Drawing.Size(45, 16);
             this.label3.TabIndex = 0;
-            this.label3.Text = "# Lines";
+            this.label3.Text = "Lines";
             // 
             // fractalDisplayPanel
             // 
             this.fractalDisplayPanel.BackColor = System.Drawing.SystemColors.Window;
             this.fractalDisplayPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fractalDisplayPanel.Location = new System.Drawing.Point(0, 46);
-            this.fractalDisplayPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.fractalDisplayPanel.Location = new System.Drawing.Point(0, 37);
             this.fractalDisplayPanel.Name = "fractalDisplayPanel";
-            this.fractalDisplayPanel.Size = new System.Drawing.Size(884, 476);
+            this.fractalDisplayPanel.Size = new System.Drawing.Size(663, 387);
             this.fractalDisplayPanel.TabIndex = 1;
             // 
             // fractalOptionPanel
@@ -171,9 +162,8 @@
             this.fractalOptionPanel.Controls.Add(this.label3);
             this.fractalOptionPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.fractalOptionPanel.Location = new System.Drawing.Point(0, 0);
-            this.fractalOptionPanel.Margin = new System.Windows.Forms.Padding(4);
             this.fractalOptionPanel.Name = "fractalOptionPanel";
-            this.fractalOptionPanel.Size = new System.Drawing.Size(884, 46);
+            this.fractalOptionPanel.Size = new System.Drawing.Size(663, 37);
             this.fractalOptionPanel.TabIndex = 0;
             // 
             // label4
@@ -181,10 +171,9 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(200, 12);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(150, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 20);
+            this.label4.Size = new System.Drawing.Size(48, 16);
             this.label4.TabIndex = 1;
             this.label4.Text = "Angle";
             // 
@@ -193,17 +182,17 @@
             this.fractalPanel.Controls.Add(this.fractalDisplayPanel);
             this.fractalPanel.Controls.Add(this.fractalOptionPanel);
             this.fractalPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fractalPanel.Location = new System.Drawing.Point(799, 0);
-            this.fractalPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.fractalPanel.Location = new System.Drawing.Point(599, 0);
             this.fractalPanel.Name = "fractalPanel";
-            this.fractalPanel.Size = new System.Drawing.Size(884, 522);
+            this.fractalPanel.Size = new System.Drawing.Size(663, 424);
             this.fractalPanel.TabIndex = 11;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(582, 486);
+            this.button1.Location = new System.Drawing.Point(436, 395);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(198, 32);
+            this.button1.Size = new System.Drawing.Size(148, 26);
             this.button1.TabIndex = 7;
             this.button1.Text = "GoToShockWavePlayer";
             this.button1.UseVisualStyleBackColor = true;
@@ -220,17 +209,15 @@
             this.audioPanel.Controls.Add(this.progressBar2);
             this.audioPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.audioPanel.Location = new System.Drawing.Point(0, 0);
-            this.audioPanel.Margin = new System.Windows.Forms.Padding(4);
             this.audioPanel.Name = "audioPanel";
-            this.audioPanel.Size = new System.Drawing.Size(799, 522);
+            this.audioPanel.Size = new System.Drawing.Size(599, 424);
             this.audioPanel.TabIndex = 10;
             // 
             // elementHost1
             // 
-            this.elementHost1.Location = new System.Drawing.Point(39, 25);
-            this.elementHost1.Margin = new System.Windows.Forms.Padding(4);
+            this.elementHost1.Location = new System.Drawing.Point(29, 20);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(720, 177);
+            this.elementHost1.Size = new System.Drawing.Size(540, 144);
             this.elementHost1.TabIndex = 6;
             this.elementHost1.Text = "elementHost1";
             this.elementHost1.Child = this.spectrum1;
@@ -238,10 +225,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(239, 236);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(179, 192);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 17);
+            this.label2.Size = new System.Drawing.Size(15, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "R";
             // 
@@ -249,59 +235,53 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Location = new System.Drawing.Point(36, 279);
-            this.chart1.Margin = new System.Windows.Forms.Padding(4);
+            this.chart1.Location = new System.Drawing.Point(27, 227);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(723, 185);
+            this.chart1.Size = new System.Drawing.Size(542, 150);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(61, 236);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
+            this.progressBar1.Location = new System.Drawing.Point(46, 192);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(169, 18);
+            this.progressBar1.Size = new System.Drawing.Size(127, 15);
             this.progressBar1.TabIndex = 2;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(459, 231);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Location = new System.Drawing.Point(344, 188);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(299, 24);
+            this.comboBox1.Size = new System.Drawing.Size(225, 21);
             this.comboBox1.TabIndex = 4;
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(267, 236);
-            this.progressBar2.Margin = new System.Windows.Forms.Padding(4);
+            this.progressBar2.Location = new System.Drawing.Point(200, 192);
             this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(169, 18);
+            this.progressBar2.Size = new System.Drawing.Size(127, 15);
             this.progressBar2.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 247);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(26, 201);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 17);
+            this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = "L";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1683, 522);
+            this.ClientSize = new System.Drawing.Size(1262, 424);
             this.Controls.Add(this.fractalPanel);
             this.Controls.Add(this.audioPanel);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LightWave";
