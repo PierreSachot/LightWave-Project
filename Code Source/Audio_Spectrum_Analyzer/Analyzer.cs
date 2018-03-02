@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Ports;
 //using System.Windows;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Un4seen.Bass;
@@ -33,9 +34,6 @@ namespace Audio_Spectrum_Analyzer
 
         private int _lines = 64;        // number of spectrum lines
 
-
-        [DllImport("winmm.dll")]
-        public static extern long waveOutGetVolume(UInt32 deviceID, out UInt32 Volume);
 
         // fonction qui utilise la fonction système waveOutGetVolume et qui renvoie un tableau de deux entiers : [volumeGauche, volumeDroit]
 
@@ -79,6 +77,7 @@ namespace Audio_Spectrum_Analyzer
             }
 
             Init();
+            
         }
 
         // Serial port for arduino output
@@ -120,19 +119,6 @@ namespace Audio_Spectrum_Analyzer
             }
         }
 
-        public static int[] GetVolume(int devinde)
-        {
-            UInt32 idPeripherique = (UInt32)devinde; // zéro pour la carte principale
-            UInt32 volume;
-
-            long result = waveOutGetVolume(idPeripherique, out volume);
-
-            int volumeGauche = (int)(volume & 0xFFFF);                  // on ne garde que les 2 octets de poids faible par masquage    
-            int volumeDroit = (int)((volume & 0xFFFF0000) >> 16);  // on ne garde que les 2 octets de poids fort par masquage et decalage     
-
-            return new int[] { volumeGauche, volumeDroit };
-        } 
-
 
         // initialization
         private void Init()
@@ -162,6 +148,7 @@ namespace Audio_Spectrum_Analyzer
 
             var enumerator = new MMDeviceEnumerator();
             var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+            int level = BassWasapi.BASS_WASAPI_GetLevel();
             //computes the spectrum data, the code is taken from a bass_wasapi sample.
             for (x = 0; x < _lines; x++)
             {
@@ -174,15 +161,13 @@ namespace Audio_Spectrum_Analyzer
                     if (peak < _fft[1 + b0]) peak = _fft[1 + b0];
                 }
                 y = (int)(Math.Sqrt(peak) * 3 * 255 - 4);
-                /*if (y > 0)
-                {
-                    int volumeGauche = GetVolume()[1];
-                    Console.WriteLine(volumeGauche);
-                    y = (y * volumeGauche) / y;
-                }*/
-                int volumeGauche = GetVolume(devindex)[0];
                 if (y > 255) y = 255;
                 if (y < 0) y = 0;
+                int levelOn100 = (Utils.LowWord32(level)) / 32768 * 100;
+                Console.Write(y);
+                if (levelOn100 != 0)
+                    y = y / levelOn100 * 255;
+                Console.WriteLine(" "+levelOn100+" "+y);
                 _spectrumdata.Add((byte)y);
             }
 
@@ -219,8 +204,7 @@ namespace Audio_Spectrum_Analyzer
             }
             _spectrumdata.Clear();
 
-
-            int level = BassWasapi.BASS_WASAPI_GetLevel();
+            // on affiche le niveau de chaque côtés
             _l.Value = (Utils.LowWord32(level));
             _r.Value = (Utils.HighWord32(level));
             if (level == _lastlevel && level != 0) _hanctr++;

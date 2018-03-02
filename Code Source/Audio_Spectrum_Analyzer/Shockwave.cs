@@ -22,26 +22,13 @@ namespace Audio_Spectrum_Analyzer
         private Size formSize;
         private Size panelSize;
         private bool isInFullScreen;
+        private List<string> lstVideos;
+        private int currentVideo = 0;
 
         public ShockWavePLayer()
         {
             InitializeComponent();
-            this.BackColor = Color.Black;
             pnlVideo.BackColor = Color.Black;
-            lstVideos.BackColor = Color.Black;
-            lstVideos.ForeColor = Color.White;
-            btnFullscreen.BackColor = Color.Black;
-            btnFullscreen.ForeColor = Color.White;
-            btnNext.BackColor = Color.Black;
-            btnNext.ForeColor = Color.White;
-            btnPlayPause.BackColor = Color.Black;
-            btnPlayPause.ForeColor = Color.White;
-            btnPrevious.BackColor = Color.Black;
-            btnPrevious.ForeColor = Color.White;
-            btnVolume.BackColor = Color.Black;
-            btnVolume.ForeColor = Color.White;
-            lblVideoPosition.BackColor = Color.Black;
-            lblVideoPosition.ForeColor = Color.White;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -56,6 +43,7 @@ namespace Audio_Spectrum_Analyzer
             isInFullScreen = false;
             formSize = new Size(this.Width, this.Height);
             panelSize = new Size(pnlVideo.Width, pnlVideo.Height);
+            lstVideos = new List<string>();
             try
             {
                 shockwavePath = Directory.GetFiles(folderPath, "*.wmv");
@@ -64,10 +52,25 @@ namespace Audio_Spectrum_Analyzer
                     foreach (string path in shockwavePath)
                     {
                         string vid = path.Replace(folderPath, string.Empty);
-                        lstVideos.Items.Add(vid);
+                        lstVideos.Add(vid);
                     }
                 }
-                lstVideos.SelectedIndex = selectedIndex;
+                currentVideo = selectedIndex;
+                try
+                {
+                    video.Stop();
+                    video.Dispose();
+                }
+                catch { }
+                selectedIndex = currentVideo;
+                video = new Video(shockwavePath[selectedIndex], false);
+                video.Owner = pnlVideo;
+                pnlVideo.Size = panelSize;
+                video.Play();
+                tmrVideo.Enabled = true;
+                btnPlayPause.Text = "Pause";
+                video.Ending += Video_Ending;
+                lblVideo.Text = lstVideos[currentVideo];
             }
             catch(Exception)
             {
@@ -77,6 +80,28 @@ namespace Audio_Spectrum_Analyzer
 
         public void playVideo()
         {
+            try
+            {
+                video.Stop();
+                video.Dispose();
+            }
+            catch { }
+            selectedIndex = currentVideo;
+            video = new Video(shockwavePath[selectedIndex], false);
+            video.Owner = pnlVideo;
+            if (isInFullScreen)
+            {
+                setInFullScreen();
+            }
+            else
+            {
+                pnlVideo.Size = panelSize;
+            }
+            video.Play();
+            tmrVideo.Enabled = true;
+            btnPlayPause.Text = "Pause";
+            video.Ending += Video_Ending;
+            lblVideo.Text = lstVideos[currentVideo];
             video.Play();
             Task.Factory.StartNew(() =>
             {
@@ -92,31 +117,6 @@ namespace Audio_Spectrum_Analyzer
             });
         }
 
-        private void lstVideos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                video.Stop();
-                video.Dispose();
-            }
-            catch { }
-            selectedIndex = lstVideos.SelectedIndex;
-            video = new Video(shockwavePath[selectedIndex], false);
-            video.Owner = pnlVideo;
-            if (isInFullScreen)
-            {
-                setInFullScreen();
-            }
-            else
-            {
-                pnlVideo.Size = panelSize;
-            }
-            video.Play();
-            tmrVideo.Enabled = true;
-            btnPlayPause.Text = "Pause";
-            video.Ending += Video_Ending;
-            lblVideo.Text = lstVideos.Text;
-        }
 
         private void Video_Ending(object sender, EventArgs e)
         {
@@ -136,12 +136,12 @@ namespace Audio_Spectrum_Analyzer
 
         private void NextVideo()
         {
-            int index = lstVideos.SelectedIndex;
+            int index = currentVideo;
             index++;
             if (index > shockwavePath.Length - 1)
                 index = 0;
             selectedIndex = index;
-            lstVideos.SelectedIndex = index;
+            currentVideo = index;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -156,12 +156,12 @@ namespace Audio_Spectrum_Analyzer
 
         private void PreviousVideo()
         {
-            int index = lstVideos.SelectedIndex;
+            int index = currentVideo;
             index--;
             if (index == -1)
                 index = shockwavePath.Length - 1;
             selectedIndex = index;
-            lstVideos.SelectedIndex = index;
+            currentVideo = index;
         }
 
         private void btnPlayPause_Click(object sender, EventArgs e)
@@ -190,6 +190,14 @@ namespace Audio_Spectrum_Analyzer
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
+            this.BackColor = Color.Black;
+            btnFullscreen.BackColor = Color.Black;
+            btnNext.BackColor = Color.Black;
+            btnPlayPause.BackColor = Color.Black;
+            btnPrevious.BackColor = Color.Black;
+            btnVolume.BackColor = Color.Black;
+            lblVideoPosition.BackColor = Color.Black;
+
             video.Owner = this;
         }
 
@@ -201,8 +209,15 @@ namespace Audio_Spectrum_Analyzer
                 FormBorderStyle = FormBorderStyle.Sizable;
                 WindowState = FormWindowState.Normal;
                 this.Size = formSize;
+                this.BackColor = Color.White;
                 video.Owner = pnlVideo;
                 pnlVideo.Size = panelSize;
+                btnFullscreen.BackColor = Color.White;
+                btnNext.BackColor = Color.White;
+                btnPlayPause.BackColor = Color.White;
+                btnPrevious.BackColor = Color.White;
+                btnVolume.BackColor = Color.White;
+                lblVideoPosition.BackColor = Color.White;
                 isInFullScreen = false;
             }
         }
