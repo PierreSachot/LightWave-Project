@@ -14,7 +14,7 @@ using NAudio.CoreAudioApi;
 
 namespace Audio_Spectrum_Analyzer
 {
-    internal class Analyzer
+    public class Analyzer
     {
         private bool _enable;               //enabled status
         private DispatcherTimer _t;         //timer that refreshes the display
@@ -33,6 +33,7 @@ namespace Audio_Spectrum_Analyzer
         private Form parent;
 
         private int _lines = 64;        // number of spectrum lines
+        private float _soundLevel;
 
 
         // fonction qui utilise la fonction système waveOutGetVolume et qui renvoie un tableau de deux entiers : [volumeGauche, volumeDroit]
@@ -61,6 +62,14 @@ namespace Audio_Spectrum_Analyzer
             _initialized = false;
             this.parent = parent;
 
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+
+
+            t.Interval = 15000; // specify interval time as you want
+            t.Tick += new EventHandler(timer_Tick);
+            t.Start();
+
+
             chart.Series.Add("wave");
             chart.Series["wave"].ChartType = SeriesChartType.FastLine;
             chart.Series["wave"].ChartArea = "ChartArea1";
@@ -80,6 +89,11 @@ namespace Audio_Spectrum_Analyzer
             
         }
 
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            _soundLevel = GetSoundLevel();
+        }
         // Serial port for arduino output
 
 
@@ -138,6 +152,13 @@ namespace Audio_Spectrum_Analyzer
             if (!result) throw new Exception("Init Error");
         }
 
+        private float GetSoundLevel()
+        {
+            MMDeviceEnumerator devEnum = new MMDeviceEnumerator();
+            MMDevice defaultDevice = devEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            return defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100;
+        }
+
         //timer 
         private void _t_Tick(object sender, EventArgs e)
         {
@@ -163,22 +184,24 @@ namespace Audio_Spectrum_Analyzer
                 y = (int)(Math.Sqrt(peak) * 3 * 255 - 4);
                 if (y > 255) y = 255;
                 if (y < 0) y = 0;
-                int levelOn100 = (Utils.LowWord32(level)) / 32768 * 100;
-                Console.Write(y);
-                if (levelOn100 != 0)
-                    y = y / levelOn100 * 255;
-                Console.WriteLine(" "+levelOn100+" "+y);
+                //int soundLevel = (int)GetSoundLevel();
+                /*if(soundLevel>0)
+                {
+                    y = y / soundLevel * 100;
+                }*/
                 _spectrumdata.Add((byte)y);
             }
 
             if (DisplayEnable) _spectrum.Set(_spectrumdata);
             for (int i = 0; i < _spectrumdata.ToArray().Length; i++)
             {
-                if (i == 18 && _spectrumdata[i] > 60)
+                if (i == 18)
                 {
                     if(parent.GetType() == typeof(Form1))
                     {
-                        ((Form1)parent).generateFractal();
+                        Fractal fractal = new Fractal(((Form1)parent).GetFractalDisplayPanel());
+                        fractal.generateFractal(192, 1, 3*((int)GetAverage(0, 20)), 10);
+                        //((Form1)parent).generateFractal();
                     }
                     if(parent.GetType() == typeof(ShockWavePLayer))
                     {
@@ -223,6 +246,14 @@ namespace Audio_Spectrum_Analyzer
                 Enable = true;
             }
 
+        }
+
+        private float GetAverage(int start, int stop)
+        {
+            float average = 0;
+            for (int i = start; i < stop; i++)
+                average += _spectrumdata[i];
+            return average/(stop-start);
         }
 
         // WASAPI callback, required for continuous recording

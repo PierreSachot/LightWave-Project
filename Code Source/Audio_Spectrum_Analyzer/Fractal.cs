@@ -15,6 +15,8 @@ namespace Audio_Spectrum_Analyzer
         private Graphics fractalGraphics = null;
         private bool isRainbow;
         private int nbColors;
+        private Form1 form1;
+        private int drawnLinesNb;
 
         public Fractal(Panel myPanel)
         {
@@ -23,6 +25,13 @@ namespace Audio_Spectrum_Analyzer
             this.myPanel.BackColor = Color.Black;
             this.myPen.Width = 1;
             isRainbow = false;
+            drawnLinesNb = 0;
+        }
+
+        public Fractal(Form1 form1)
+        {
+            // TODO: Complete member initialization
+            this.form1 = form1;
         }
 
         public void generateFractal(int fractalAngle, int fractalIncrement, int fractalNumberOfLines, int fractalLength)
@@ -38,11 +47,16 @@ namespace Audio_Spectrum_Analyzer
             for (int i = 0; i < numberOfLines; i++)
             {
                 myPen.Color = generateColor(i);
+                drawnLinesNb++;
                 drawLine(ref angle, fractalAngle, fractalIncrement, ref length, fractalLength, ref startX, ref startY);
             }
             myPanel.Refresh();
         }
 
+        private int GetDrawnLinesNb()
+        {
+            return drawnLinesNb;
+        }
         private void drawLine(ref int fractalAngleToChange, int fractalAngle, int fractalIncrement, ref int fractalLengthToChange, int fractalLength, ref int startX, ref int startY)
         {
             if (isRainbow)

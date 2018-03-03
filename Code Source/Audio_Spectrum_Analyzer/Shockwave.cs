@@ -24,18 +24,18 @@ namespace Audio_Spectrum_Analyzer
         private bool isInFullScreen;
         private List<string> lstVideos;
         private int currentVideo = 0;
+        private MainForm parent;
 
-        public ShockWavePLayer()
+        public ShockWavePLayer(MainForm parent)
         {
             InitializeComponent();
             pnlVideo.BackColor = Color.Black;
+            this.parent = parent;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Form1 form1 = new Form1();
-            form1.Show();
-            this.Close();
+            parent.ChangeForm(0);
         }
 
         private void ShockWavePLayer_Load(object sender, EventArgs e)
