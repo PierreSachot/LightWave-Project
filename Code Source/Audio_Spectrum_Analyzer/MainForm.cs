@@ -26,6 +26,7 @@ namespace Audio_Spectrum_Analyzer
             ((Form1)currentForm).SetAnalyzer(analyzer);
             principalForm = (Form1)currentForm;
             principalForm.Show();*/
+            analyzer = ((Form1)currentForm).GetAnalyzer();
         }
 
         public void ChangeForm(int menu)

@@ -45,6 +45,7 @@
             this.fractalPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.audioPanel = new System.Windows.Forms.Panel();
+            this.btnFullscreen = new System.Windows.Forms.Button();
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.spectrum1 = new Audio_Spectrum_Analyzer.Spectrum();
             this.label2 = new System.Windows.Forms.Label();
@@ -190,7 +191,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(436, 395);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(148, 26);
             this.button1.TabIndex = 7;
@@ -200,6 +201,7 @@
             // 
             // audioPanel
             // 
+            this.audioPanel.Controls.Add(this.btnFullscreen);
             this.audioPanel.Controls.Add(this.button1);
             this.audioPanel.Controls.Add(this.elementHost1);
             this.audioPanel.Controls.Add(this.label2);
@@ -212,6 +214,16 @@
             this.audioPanel.Name = "audioPanel";
             this.audioPanel.Size = new System.Drawing.Size(599, 424);
             this.audioPanel.TabIndex = 10;
+            // 
+            // btnFullscreen
+            // 
+            this.btnFullscreen.Location = new System.Drawing.Point(344, 397);
+            this.btnFullscreen.Name = "btnFullscreen";
+            this.btnFullscreen.Size = new System.Drawing.Size(75, 23);
+            this.btnFullscreen.TabIndex = 24;
+            this.btnFullscreen.Text = "Fullscreen";
+            this.btnFullscreen.UseVisualStyleBackColor = true;
+            this.btnFullscreen.Click += new System.EventHandler(this.btnFullscreen_Click);
             // 
             // elementHost1
             // 
@@ -286,6 +298,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LightWave";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.form1_KeyDown);
             this.fractalOptionPanel.ResumeLayout(false);
             this.fractalOptionPanel.PerformLayout();
             this.fractalPanel.ResumeLayout(false);
@@ -322,6 +335,7 @@
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnFullscreen;
 
     }
 }

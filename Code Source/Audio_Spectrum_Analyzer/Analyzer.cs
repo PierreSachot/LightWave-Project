@@ -39,6 +39,32 @@ namespace Audio_Spectrum_Analyzer
         // fonction qui utilise la fonction système waveOutGetVolume et qui renvoie un tableau de deux entiers : [volumeGauche, volumeDroit]
 
         //ctor
+
+        public Analyzer()
+        {
+            _fft = new float[8192];
+            _lastlevel = 0;
+            _hanctr = 0;
+            _t = new DispatcherTimer();
+            _t.Tick += _t_Tick;
+            _t.Interval = TimeSpan.FromMilliseconds(25); //40hz refresh rate//25 //a changer ??
+            _t.IsEnabled = false;
+            _process = new WASAPIPROC(Process);
+            _spectrumdata = new List<byte>();
+            _devicelist = new ComboBox();
+            _l = new ProgressBar();
+            _r = new ProgressBar();
+            _spectrum = new Spectrum();
+            _chart = new Chart();
+
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+
+
+            t.Interval = 15000; // specify interval time as you want
+            t.Tick += new EventHandler(timer_Tick);
+            t.Start();
+        }
+
         public Analyzer(Form parent, ProgressBar left, ProgressBar right, Spectrum spectrum, ComboBox devicelist, Chart chart)
         {
             _fft = new float[8192];
@@ -156,7 +182,7 @@ namespace Audio_Spectrum_Analyzer
         {
             MMDeviceEnumerator devEnum = new MMDeviceEnumerator();
             MMDevice defaultDevice = devEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            return defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100;
+            return defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar;
         }
 
         //timer 
@@ -168,7 +194,7 @@ namespace Audio_Spectrum_Analyzer
             int b0 = 0;
 
             var enumerator = new MMDeviceEnumerator();
-            var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+            var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             int level = BassWasapi.BASS_WASAPI_GetLevel();
             //computes the spectrum data, the code is taken from a bass_wasapi sample.
             for (x = 0; x < _lines; x++)
@@ -184,11 +210,7 @@ namespace Audio_Spectrum_Analyzer
                 y = (int)(Math.Sqrt(peak) * 3 * 255 - 4);
                 if (y > 255) y = 255;
                 if (y < 0) y = 0;
-                //int soundLevel = (int)GetSoundLevel();
-                /*if(soundLevel>0)
-                {
-                    y = y / soundLevel * 100;
-                }*/
+                y *= (int)(Math.Exp((int)GetSoundLevel()));
                 _spectrumdata.Add((byte)y);
             }
 
@@ -203,7 +225,7 @@ namespace Audio_Spectrum_Analyzer
                         fractal.generateFractal(192, 1, 3*((int)GetAverage(0, 20)), 10);
                         //((Form1)parent).generateFractal();
                     }
-                    if(parent.GetType() == typeof(ShockWavePLayer))
+                    if (parent.GetType() == typeof(ShockWavePLayer) && (int)GetAverage(0, 20) > 30)
                     {
                         ((ShockWavePLayer)parent).playVideo();
                     }

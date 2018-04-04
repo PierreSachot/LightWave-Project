@@ -18,6 +18,8 @@ namespace Audio_Spectrum_Analyzer
         private Analyzer analyzer;
         private Fractal fractal;
         private MainForm parentForm;
+        private Size formSize;
+        private Size panelSize;
 
         public Form1(MainForm parentForm)
         {
@@ -26,38 +28,27 @@ namespace Audio_Spectrum_Analyzer
             analyzer = new Analyzer(this, progressBar1, progressBar2, spectrum1, comboBox1, chart1);
             analyzer.Enable = true;
             analyzer.DisplayEnable = true;
+            formSize = new Size(this.Width, this.Height);
+            panelSize = new Size(GetFractalDisplayPanel().Width, GetFractalDisplayPanel().Height);
+            fractal = new Fractal(GetFractalDisplayPanel());
+            timer1.Enabled = true;
+            this.KeyPreview = true;
+        }
+        public Form1(MainForm parentForm, Analyzer analyzer)
+        {
+            InitializeComponent();
+            this.parentForm = parentForm;
+            this.analyzer = analyzer;
+            analyzer.Enable = true;
+            analyzer.DisplayEnable = true;
             
             fractal = new Fractal(GetFractalDisplayPanel());
             timer1.Enabled = true;
         }
 
-        public ProgressBar GetProgressBar1()
+        public Analyzer GetAnalyzer()
         {
-            return progressBar1;
-        }
-        public ProgressBar GetProgressBar2()
-        {
-            return progressBar2;
-        }
-
-        public Spectrum GetSpectrum()
-        {
-            return spectrum1;
-        }
-        public ComboBox GetComboBox()
-        {
-            return comboBox1;
-        }
-        public Chart GetChart()
-        {
-            return chart1;
-        }
-
-        public void SetAnalyzer(Analyzer a)
-        {
-            analyzer = a;
-            analyzer.Enable = true;
-            analyzer.DisplayEnable = true;
+            return analyzer;
         }
 
         public void generateFractal()
@@ -83,6 +74,30 @@ namespace Audio_Spectrum_Analyzer
         private void button1_Click_1(object sender, EventArgs e)
         {
             parentForm.ChangeForm(1);
+        }
+
+        private void btnFullscreen_Click(object sender, EventArgs e)
+        {
+            setInFullScreen();
+        }
+
+        private void setInFullScreen()
+        {
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+            audioPanel.Hide();
+            fractalOptionPanel.Hide();
+        }
+        private void form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                //exit full screen when escape is pressed
+                FormBorderStyle = FormBorderStyle.Sizable;
+                WindowState = FormWindowState.Normal;
+                audioPanel.Show();
+                fractalOptionPanel.Show();
+            }
         }
     }
 }

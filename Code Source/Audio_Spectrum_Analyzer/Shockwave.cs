@@ -203,23 +203,26 @@ namespace Audio_Spectrum_Analyzer
 
         private void shockWave_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if(isInFullScreen)
             {
-                //exit full screen when escape is pressed
-                FormBorderStyle = FormBorderStyle.Sizable;
-                WindowState = FormWindowState.Normal;
-                this.Size = formSize;
-                this.BackColor = Color.White;
-                video.Owner = pnlVideo;
-                pnlVideo.Size = panelSize;
-                btnFullscreen.BackColor = Color.White;
-                btnNext.BackColor = Color.White;
-                btnPlayPause.BackColor = Color.White;
-                btnPrevious.BackColor = Color.White;
-                btnVolume.BackColor = Color.White;
-                lblVideoPosition.BackColor = Color.White;
-                isInFullScreen = false;
-            }
+                if (e.KeyCode == Keys.Escape)
+                {
+                    //exit full screen when escape is pressed
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                    WindowState = FormWindowState.Normal;
+                    this.Size = formSize;
+                    this.BackColor = Color.White;
+                    video.Owner = pnlVideo;
+                    pnlVideo.Size = panelSize;
+                    btnFullscreen.BackColor = Color.White;
+                    btnNext.BackColor = Color.White;
+                    btnPlayPause.BackColor = Color.White;
+                    btnPrevious.BackColor = Color.White;
+                    btnVolume.BackColor = Color.White;
+                    lblVideoPosition.BackColor = Color.White;
+                    isInFullScreen = false;
+                }
+            }            
         }
 
         private void trackVolume_Scroll(object sender, EventArgs e)
