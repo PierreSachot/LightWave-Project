@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Audio_Spectrum_Analyzer
 {
-    class Fractal
+    class Fractal : Effect
     {
         //fractal elements
         private Pen myPen;
@@ -15,31 +16,35 @@ namespace Audio_Spectrum_Analyzer
         private Graphics fractalGraphics = null;
         private bool isRainbow;
         private int nbColors;
-        private Form1 form1;
         private int drawnLinesNb;
+        private static Fractal singleton;
 
-        public Fractal(Panel myPanel)
+        private int angle, changeAngle, length, changeLength, numberOfLines, increment;
+
+        private Fractal(Panel myPanel)
         {
             this.myPen = new Pen(Color.Black);
             this.myPanel = myPanel;
             this.myPanel.BackColor = Color.Black;
-            this.myPen.Width = 1;
             isRainbow = false;
-            drawnLinesNb = 0;
         }
 
-        public Fractal(Form1 form1)
+        public static Fractal FractalFactory(Panel myPanel)
         {
-            // TODO: Complete member initialization
-            this.form1 = form1;
+            if (singleton == null)
+                singleton = new Fractal(myPanel);
+            return singleton;
         }
 
         public void generateFractal(int fractalAngle, int fractalIncrement, int fractalNumberOfLines, int fractalLength)
         {
-            int angle = fractalAngle;
-            int length = fractalLength;
-            int numberOfLines = fractalNumberOfLines;
-            myPen.Width = 2;
+            angle = fractalAngle;
+            changeAngle = angle;
+            length = fractalLength;
+            changeLength = length;
+            numberOfLines = fractalNumberOfLines;
+            increment = fractalIncrement;
+            myPen.Width = 3;
             fractalGraphics = myPanel.CreateGraphics();
             int startX = myPanel.Width / 2;
             int startY = myPanel.Height / 2;
@@ -48,8 +53,9 @@ namespace Audio_Spectrum_Analyzer
             {
                 myPen.Color = generateColor(i);
                 drawnLinesNb++;
-                drawLine(ref angle, fractalAngle, fractalIncrement, ref length, fractalLength, ref startX, ref startY);
+                drawLine(ref changeAngle, angle, increment, ref changeLength, length, ref startX, ref startY);
             }
+            Thread.Sleep(60);
             myPanel.Refresh();
         }
 
@@ -59,6 +65,7 @@ namespace Audio_Spectrum_Analyzer
         }
         private void drawLine(ref int fractalAngleToChange, int fractalAngle, int fractalIncrement, ref int fractalLengthToChange, int fractalLength, ref int startX, ref int startY)
         {
+            myPanel.SuspendLayout();
             if (isRainbow)
             {
                 Random alea = new Random();
@@ -79,11 +86,18 @@ namespace Audio_Spectrum_Analyzer
             startX = endX;
             startY = endY;
             fractalGraphics.DrawLines(myPen, points);
+
+            myPanel.ResumeLayout();
         }
 
         private Color generateColor(int i)
         {
             return Color.FromArgb(255, i * 255 / nbColors, 0);
+        }
+
+        public override void GenerateEffect(int size)
+        {
+            generateFractal(192, 1, size, 10);
         }
     }
 }

@@ -30,18 +30,21 @@ namespace Audio_Spectrum_Analyzer
         private int devindex;               //used device index
         private Chart _chart;
 
-        private Form parent;
+        private MainForm parent;
 
         private int _lines = 64;        // number of spectrum lines
         private float _soundLevel;
+        private float[] _freqBand = new float[8];
 
 
         // fonction qui utilise la fonction système waveOutGetVolume et qui renvoie un tableau de deux entiers : [volumeGauche, volumeDroit]
 
         //ctor
 
-        public Analyzer()
+        public Analyzer(MainForm main)
         {
+
+            parent = main;
             _fft = new float[8192];
             _lastlevel = 0;
             _hanctr = 0;
@@ -49,13 +52,14 @@ namespace Audio_Spectrum_Analyzer
             _t.Tick += _t_Tick;
             _t.Interval = TimeSpan.FromMilliseconds(25); //40hz refresh rate//25 //a changer ??
             _t.IsEnabled = false;
+            _l = null;
+            _r = null;
             _process = new WASAPIPROC(Process);
             _spectrumdata = new List<byte>();
-            _devicelist = new ComboBox();
-            _l = new ProgressBar();
-            _r = new ProgressBar();
             _spectrum = new Spectrum();
-            _chart = new Chart();
+            _chart = null;
+            _devicelist = new ComboBox();
+            _initialized = false;
 
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
 
@@ -63,9 +67,10 @@ namespace Audio_Spectrum_Analyzer
             t.Interval = 15000; // specify interval time as you want
             t.Tick += new EventHandler(timer_Tick);
             t.Start();
+            Init();
         }
 
-        public Analyzer(Form parent, ProgressBar left, ProgressBar right, Spectrum spectrum, ComboBox devicelist, Chart chart)
+        public Analyzer(MainForm parent, ProgressBar left, ProgressBar right, Spectrum spectrum, ComboBox devicelist, Chart chart)
         {
             _fft = new float[8192];
             _lastlevel = 0;
@@ -113,6 +118,30 @@ namespace Audio_Spectrum_Analyzer
 
             Init();
             
+        }
+
+        void MakeFrequencyBands()
+        {
+            /*
+             * 22050 Hz / 8192 bands = 2.69 Hz / sample
+             * 20-60 hz
+             * 60-250 hz
+             * 250 - 500 hz
+             * 500 - 2000 hz
+             * 2000 - 4000 hz
+             * 4000 - 6000 hz
+             * 6000 - 20000 hz
+             * 
+             * 0 - 23 = 61.8 hz
+             * 1
+             * 2
+             * 3
+             * 4
+             * 5
+             * 6
+             * 7
+             * 
+             */
         }
 
 
@@ -210,7 +239,7 @@ namespace Audio_Spectrum_Analyzer
                 y = (int)(Math.Sqrt(peak) * 3 * 255 - 4);
                 if (y > 255) y = 255;
                 if (y < 0) y = 0;
-                y *= (int)(Math.Exp((int)GetSoundLevel()));
+                y = (int)NAudio.Utils.Decibels.LinearToDecibels((double)y);
                 _spectrumdata.Add((byte)y);
             }
 
@@ -219,20 +248,12 @@ namespace Audio_Spectrum_Analyzer
             {
                 if (i == 18)
                 {
-                    if(parent.GetType() == typeof(Form1))
-                    {
-                        Fractal fractal = new Fractal(((Form1)parent).GetFractalDisplayPanel());
-                        fractal.generateFractal(192, 1, 3*((int)GetAverage(0, 20)), 10);
-                        //((Form1)parent).generateFractal();
-                    }
-                    if (parent.GetType() == typeof(ShockWavePLayer) && (int)GetAverage(0, 20) > 30)
-                    {
-                        ((ShockWavePLayer)parent).playVideo();
-                    }
+                    parent.GenerateEffect(3 * (int)GetAverage(0, 20));
                 }
                 try
                 {
-                    _chart.Series["wave"].Points.Add(_spectrumdata[i]);
+                    if(_chart != null)
+                        _chart.Series["wave"].Points.Add(_spectrumdata[i]);
                 }
                 catch (Exception)
                 {
@@ -240,7 +261,8 @@ namespace Audio_Spectrum_Analyzer
                 }
                 try
                 {
-                    _chart.Series["wave"].Points.RemoveAt(0);
+                    if (_chart != null)
+                        _chart.Series["wave"].Points.RemoveAt(0);
                 }
                 catch (Exception)
                 {
@@ -250,23 +272,30 @@ namespace Audio_Spectrum_Analyzer
             _spectrumdata.Clear();
 
             // on affiche le niveau de chaque côtés
-            _l.Value = (Utils.LowWord32(level));
-            _r.Value = (Utils.HighWord32(level));
-            if (level == _lastlevel && level != 0) _hanctr++;
-            _lastlevel = level;
-
-            //Required, because some programs hang the output. If the output hangs for a 75ms
-            //this piece of code re initializes the output so it doesn't make a gliched sound for long.
-            if (_hanctr > 3)
+            if (_l != null)
             {
-                _hanctr = 0;
-                _l.Value = (0);
-                _r.Value = (0);
-                Free();
-                Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-                _initialized = false;
-                Enable = true;
+                _l.Value = (Utils.LowWord32(level));
+                _r.Value = (Utils.HighWord32(level));
+                if (level == _lastlevel && level != 0) _hanctr++;
+                _lastlevel = level;
             }
+
+                //Required, because some programs hang the output. If the output hangs for a 75ms
+                //this piece of code re initializes the output so it doesn't make a gliched sound for long.
+                if (_hanctr > 3)
+                {
+                    
+                    _hanctr = 0;
+                    if (_l != null)
+                    {
+                        _l.Value = (0);
+                        _r.Value = (0);
+                    }
+                    Free();
+                    Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+                    _initialized = false;
+                    Enable = true;
+                }
 
         }
 
@@ -284,7 +313,7 @@ namespace Audio_Spectrum_Analyzer
             return length;
         }
 
-        public void setParent(Form parent)
+        public void setParent(MainForm parent)
         {
             this.parent = parent;
         }

@@ -15,8 +15,8 @@ namespace Audio_Spectrum_Analyzer
 {
     public partial class Form1 : Form
     {
-        private Analyzer analyzer;
-        private Fractal fractal;
+       
+        /*private Fractal fractal;
         private MainForm parentForm;
         private Size formSize;
         private Size panelSize;
@@ -26,6 +26,7 @@ namespace Audio_Spectrum_Analyzer
             InitializeComponent();
             this.parentForm = parentForm;
             analyzer = new Analyzer(this, progressBar1, progressBar2, spectrum1, comboBox1, chart1);
+            //analyzer = new Analyzer(this, 9);
             analyzer.Enable = true;
             analyzer.DisplayEnable = true;
             formSize = new Size(this.Width, this.Height);
@@ -38,11 +39,11 @@ namespace Audio_Spectrum_Analyzer
         {
             InitializeComponent();
             this.parentForm = parentForm;
-            this.analyzer = analyzer;
-            analyzer.Enable = true;
-            analyzer.DisplayEnable = true;
+            this.analyzer = analyzer;*/
+            /*analyzer.Enable = true;
+            analyzer.DisplayEnable = true;*/
             
-            fractal = new Fractal(GetFractalDisplayPanel());
+            /*fractal = new Fractal(GetFractalDisplayPanel());
             timer1.Enabled = true;
         }
 
@@ -61,10 +62,6 @@ namespace Audio_Spectrum_Analyzer
             return fractalDisplayPanel;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void goButton_Click_1(object sender, EventArgs e)
         {
@@ -98,6 +95,6 @@ namespace Audio_Spectrum_Analyzer
                 audioPanel.Show();
                 fractalOptionPanel.Show();
             }
-        }
+        }*/
     }
 }

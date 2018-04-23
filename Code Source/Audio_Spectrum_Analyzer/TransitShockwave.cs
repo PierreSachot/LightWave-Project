@@ -9,12 +9,13 @@ using System.Windows.Forms;
 using Microsoft.DirectX.AudioVideoPlayback;
 using System.IO;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Audio_Spectrum_Analyzer
 {
-    public partial class ShockWavePLayer : Form
+    class TransitShockwave : Effect
     {
-        //Fonctionne uniquement sous windows x86 à causes des librairies directX
+         //Fonctionne uniquement sous windows x86 à causes des librairies directX
         private Video video;
         private string[] shockwavePath;
         private string folderPath = @".\Videos";
@@ -24,20 +25,14 @@ namespace Audio_Spectrum_Analyzer
         private bool isInFullScreen;
         private List<string> lstVideos;
         private int currentVideo = 0;
-        private MainForm parent;
+        private Panel parent;
+        private System.Windows.Forms.Timer TimerVideo { get; set; }
 
-        public ShockWavePLayer(MainForm parent)
+        public TransitShockwave(Panel parent, System.Windows.Forms.Timer parentTimer)
         {
-            InitializeComponent();
-            pnlVideo.BackColor = Color.Black;
+            parent.BackColor = Color.Black;
             this.parent = parent;
-        }
-
-        private void ShockWavePLayer_Load(object sender, EventArgs e)
-        {
-            isInFullScreen = false;
-            formSize = new Size(this.Width, this.Height);
-            panelSize = new Size(pnlVideo.Width, pnlVideo.Height);
+            TimerVideo = parentTimer;
             lstVideos = new List<string>();
             try
             {
@@ -59,17 +54,32 @@ namespace Audio_Spectrum_Analyzer
                 catch { }
                 selectedIndex = currentVideo;
                 video = new Video(shockwavePath[selectedIndex], false);
-                video.Owner = pnlVideo;
-                pnlVideo.Size = panelSize;
+                video.Owner = parent;
+                parent.Size = panelSize;
                 video.Play();
-                tmrVideo.Enabled = true;
-                btnPlayPause.Text = "Pause";
+                TimerVideo.Enabled = true;
+                //btnPlayPause.Text = "Pause";
                 video.Ending += Video_Ending;
-                lblVideo.Text = lstVideos[currentVideo];
+                //lblVideo.Text = lstVideos[currentVideo];
             }
-            catch(Exception)
+            catch (Exception)
             {
 
+            }
+        }
+
+        private void ShockWavePLayer_Load(object sender, EventArgs e)
+        {
+            isInFullScreen = false;
+            formSize = new Size(parent.Width, parent.Height);
+            
+        }
+
+        public override void GenerateEffect(int size)
+        {
+            if (size > 40)
+            {
+                new Thread(() => playVideo()).Start();
             }
         }
 
@@ -83,22 +93,22 @@ namespace Audio_Spectrum_Analyzer
             catch { }
             selectedIndex = currentVideo;
             video = new Video(shockwavePath[selectedIndex], false);
-            video.Owner = pnlVideo;
+            video.Owner = parent;
             if (isInFullScreen)
             {
-                setInFullScreen();
+                //setInFullScreen();
             }
             else
             {
-                pnlVideo.Size = panelSize;
+                parent.Size = panelSize;
             }
             video.Play();
-            tmrVideo.Enabled = true;
-            btnPlayPause.Text = "Pause";
+            TimerVideo.Enabled = true;
+            //btnPlayPause.Text = "Pause";
             video.Ending += Video_Ending;
-            lblVideo.Text = lstVideos[currentVideo];
+            //lblVideo.Text = lstVideos[currentVideo];
             video.Play();
-            Task.Factory.StartNew(() =>
+            /*Task.Factory.StartNew(() =>
             {
                 System.Threading.Thread.Sleep(2000);
 
@@ -109,7 +119,7 @@ namespace Audio_Spectrum_Analyzer
                         NextVideo();
                     }));
                 }
-            });
+            });*/
         }
 
 
@@ -164,28 +174,28 @@ namespace Audio_Spectrum_Analyzer
             if (!video.Playing)
             {
                 video.Play();
-                tmrVideo.Enabled = true;
-                btnPlayPause.Text = "Pause";
+                TimerVideo.Enabled = true;
+               // btnPlayPause.Text = "Pause";
             }
             else if (video.Playing)
             {
                 video.Pause();
-                tmrVideo.Enabled = false;
-                btnPlayPause.Text = "Play";
+                TimerVideo.Enabled = false;
+                //btnPlayPause.Text = "Play";
             }
         }
 
         private void btnFullscreen_Click(object sender, EventArgs e)
         {
-            setInFullScreen();
+            //setInFullScreen();
             isInFullScreen = true;
         }
 
-        private void setInFullScreen()
+        /*private void setInFullScreen()
         {
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
-            this.BackColor = Color.Black;
+            this.parent = Color.Black;
             btnFullscreen.BackColor = Color.Black;
             btnNext.BackColor = Color.Black;
             btnPlayPause.BackColor = Color.Black;
@@ -194,9 +204,9 @@ namespace Audio_Spectrum_Analyzer
             lblVideoPosition.BackColor = Color.Black;
 
             video.Owner = this;
-        }
+        }*/
 
-        private void shockWave_KeyDown(object sender, KeyEventArgs e)
+        /*private void shockWave_KeyDown(object sender, KeyEventArgs e)
         {
             if(isInFullScreen)
             {
@@ -218,9 +228,9 @@ namespace Audio_Spectrum_Analyzer
                     isInFullScreen = false;
                 }
             }            
-        }
+        }*/
 
-        private void trackVolume_Scroll(object sender, EventArgs e)
+        /*private void trackVolume_Scroll(object sender, EventArgs e)
         {
             video.Audio.Volume = trackVolume.Value;
         }
@@ -238,6 +248,6 @@ namespace Audio_Spectrum_Analyzer
             lblVideoPosition.Text = string.Format("{0:00}:{1:00}:{2:00}", currentTime / 3600, (currentTime / 60) % 60, currentTime % 60)
                                     + " / " +
                                     string.Format("{0:00}:{1:00}:{2:00}", maxTime / 3600, (maxTime / 60) % 60, maxTime % 60);
-        }
+        }*/
     }
 }

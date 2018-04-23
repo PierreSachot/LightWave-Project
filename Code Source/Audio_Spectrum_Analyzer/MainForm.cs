@@ -12,44 +12,59 @@ namespace Audio_Spectrum_Analyzer
     public partial class MainForm : Form
     {
         private int currentMenu;
-        private Form currentForm;
-        private Form1 principalForm;
+        public Effect CurrentEffect { get; set; }
         private Analyzer analyzer;
+        private Size formSize, panelSize;
+        public const int MAIN_MENU = 0, FRACTAL_MENU = 1, SHOCKWAVE_MENU = 2, CIRCLE_MENU = 3; 
 
         public MainForm()
         {
             InitializeComponent();
+            mainPanel.MaximumSize = formSize;
+
             currentMenu = 0;
-            currentForm = new Form1(this);
-            currentForm.Show();
-            /*analyzer = new Analyzer(currentForm, ((Form1)currentForm).GetProgressBar1(), ((Form1)currentForm).GetProgressBar2(), ((Form1)currentForm).GetSpectrum(), ((Form1)currentForm).GetComboBox(), ((Form1)currentForm).GetChart());
-            ((Form1)currentForm).SetAnalyzer(analyzer);
-            principalForm = (Form1)currentForm;
-            principalForm.Show();*/
-            analyzer = ((Form1)currentForm).GetAnalyzer();
+            analyzer = new Analyzer(this);
+            CurrentEffect = Fractal.FractalFactory(mainPanel);
+            timer1.Enabled = true;
+            analyzer.Enable = true;
+            analyzer.DisplayEnable = true;
+            formSize = new Size(this.Width, this.Height);
+            panelSize = new Size(mainPanel.Width, mainPanel.Height);
+            timer1.Enabled = true;
+            //ChangeEffect(SHOCKWAVE_MENU);
+            ChangeEffect(CIRCLE_MENU);
         }
 
-        public void ChangeForm(int menu)
+        public void ChangeEffect(int menuNb)
         {
-            currentMenu = menu;
-            Form form;
-            switch(currentMenu)
+            analyzer.Enable = false;
+            timer1.Enabled = false;
+            switch(menuNb)
             {
-                case 0:
-                    analyzer.setParent(principalForm);
-                    principalForm.Show();
-                    currentForm.Hide();
-                    currentForm = principalForm;
+                case MAIN_MENU:
                     break;
-                case 1:
-                    form = new ShockWavePLayer(this);
-                    currentForm.Hide();
-                    analyzer.setParent(form);
-                    form.Show();
-                    currentForm.Hide();
-                    currentForm = form;
+                case FRACTAL_MENU:
+                    CurrentEffect = Fractal.FractalFactory(mainPanel);
                     break;
+                case SHOCKWAVE_MENU:
+                    CurrentEffect = new TransitShockwave(mainPanel, timer2);
+                    break;
+                case CIRCLE_MENU:
+                    CurrentEffect = Circle.FractalFactory(mainPanel);
+                    break;
+                default:
+                    analyzer.Enable = true;
+                    timer1.Enabled = true;
+                    return;
             }
+            analyzer.Enable = true;
+            timer1.Enabled = true;
+            currentMenu = menuNb;
+        }
+
+        public void GenerateEffect(int size)
+        {
+            CurrentEffect.GenerateEffect(size);
         }
     }
 }
