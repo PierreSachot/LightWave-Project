@@ -13,3 +13,4 @@ D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.exe
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.pdb
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\LightWave_Project.csprojResolveAssemblyReference.cache
+D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.MainPanel.resources
