@@ -24,16 +24,7 @@ namespace Audio_Spectrum_Analyzer
 
             currentMenu = 0;
             analyzer = new Analyzer(this);
-            //CurrentEffect = new Fractal.FractalFactory(mainPanel);
-            ChangeEffect(CIRCLE_MENU);
-            timer1.Enabled = true;
-            analyzer.Enable = true;
-            analyzer.DisplayEnable = true;
-            formSize = new Size(this.Width, this.Height);
-            panelSize = new Size(mainPanel.Width, mainPanel.Height);
-            timer1.Enabled = true;
-            //ChangeEffect(SHOCKWAVE_MENU);
-            //ChangeEffect(CIRCLE_MENU);
+            
         }
 
         public void ChangeEffect(int menuNb)
@@ -72,6 +63,20 @@ namespace Audio_Spectrum_Analyzer
         {
             if(CurrentEffect != null)
                 CurrentEffect.GenerateEffect(size);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //CurrentEffect = new Fractal.FractalFactory(mainPanel);
+            ChangeEffect(MAIN_MENU);
+            timer1.Enabled = true;
+            analyzer.Enable = true;
+            analyzer.DisplayEnable = true;
+            formSize = new Size(this.Width, this.Height);
+            panelSize = new Size(mainPanel.Width, mainPanel.Height);
+            timer1.Enabled = true;
+            //ChangeEffect(SHOCKWAVE_MENU);
+            //ChangeEffect(CIRCLE_MENU);
         }
     }
 }
