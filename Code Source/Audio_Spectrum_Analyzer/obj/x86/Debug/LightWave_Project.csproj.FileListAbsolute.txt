@@ -13,3 +13,27 @@ D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\NAudio.xml
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.exe
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.pdb
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Audio_Spectrum_Analyzer.exe.config
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Audio_Spectrum_Analyzer.exe
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Audio_Spectrum_Analyzer.pdb
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\NAudio.xml
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\LightWave_Project.csprojAssemblyReference.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Spectrum.baml
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Spectrum.g.cs
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer_MarkupCompile.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.g.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.Form1.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.MainForm.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.Properties.Resources.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.ShockWavePLayer.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\LightWave_Project.csproj.GenerateResource.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\LightWave_Project.csproj.CoreCompileInputs.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\LightWave_Project.csproj.CopyComplete
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.exe
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Debug\Audio_Spectrum_Analyzer.pdb
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.dll
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Microsoft.DirectX.dll
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Microsoft.DirectX.Direct3D.dll
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Microsoft.DirectX.xml
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.xml
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Debug\Microsoft.DirectX.Direct3D.xml

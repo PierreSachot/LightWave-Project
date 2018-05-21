@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Audio_Spectrum_Analyzer
 {
-    class Circle : Effect
+    class Circle : IEffect
     {
         //fractal elements
         private Pen myPen;
@@ -32,7 +32,7 @@ namespace Audio_Spectrum_Analyzer
             isRainbow = false;
             startSize = 100;
             nbDrawnLines = 0;
-            FileStream fs = new FileStream(@"D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Logo\logo2.png", FileMode.Open);
+            FileStream fs = new FileStream(@"E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Logo\logo2.png", FileMode.Open);
             img = Image.FromStream(fs);
             fs.Close();
             myPen.Color = Color.White;
@@ -91,7 +91,7 @@ namespace Audio_Spectrum_Analyzer
             return Color.FromArgb(255, i * 255 / nbColors, 0);
         }
 
-        public override void GenerateEffect(int size)
+        public void GenerateEffect(int size)
         {
             if(size>5)
              GenerateCircle(size);

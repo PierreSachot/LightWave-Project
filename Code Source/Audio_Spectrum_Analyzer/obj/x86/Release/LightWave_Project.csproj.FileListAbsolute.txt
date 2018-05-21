@@ -13,3 +13,20 @@ D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.exe
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.pdb
 D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\LightWave_Project.csprojResolveAssemblyReference.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Release\Audio_Spectrum_Analyzer.exe.config
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Release\Audio_Spectrum_Analyzer.exe
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\bin\Release\Audio_Spectrum_Analyzer.pdb
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\LightWave_Project.csprojAssemblyReference.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Spectrum.baml
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Spectrum.g.cs
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer_MarkupCompile.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.g.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.Form1.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.MainForm.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.Properties.Resources.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.ShockWavePLayer.resources
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\LightWave_Project.csproj.GenerateResource.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\LightWave_Project.csproj.CoreCompileInputs.cache
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\LightWave_Project.csproj.CopyComplete
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.exe
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\Audio_Spectrum_Analyzer.pdb
