@@ -115,18 +115,6 @@ namespace Audio_Spectrum_Analyzer
 
         private void Video_Ending(object sender, EventArgs e)
         {
-            /*Task.Factory.StartNew(() =>
-            {
-                System.Threading.Thread.Sleep(2000);
-
-                if (InvokeRequired)
-                {
-                    this.Invoke(new Action(() =>
-                    {
-                        NextVideo();
-                    }));
-                }
-            });*/
         }
 
         private void NextVideo()

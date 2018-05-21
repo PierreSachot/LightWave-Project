@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Audio_Spectrum_Analyzer
 {
-    class Fractal : Effect
+    class Fractal : IEffect
     {
         //fractal elements
         private Pen myPen;
@@ -95,7 +95,7 @@ namespace Audio_Spectrum_Analyzer
             return Color.FromArgb(255, i * 255 / nbColors, 0);
         }
 
-        public override void GenerateEffect(int size)
+        public void GenerateEffect(int size)
         {
             generateFractal(192, 1, size, 10);
         }

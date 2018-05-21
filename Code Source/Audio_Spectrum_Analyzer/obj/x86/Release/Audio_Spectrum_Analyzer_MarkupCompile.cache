@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-D:\Documents\ENSC\1ère année\S6\Transdisciplinaire\Développement application\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\
+E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Code Source\Audio_Spectrum_Analyzer\obj\x86\Release\
 Audio_Spectrum_Analyzer
 none
 false
@@ -12,8 +12,13 @@ TRACE
 
 1-1957054586
 
+<<<<<<< HEAD
 181113864036
 22-1329702169
+=======
+17225941551
+22584163011
+>>>>>>> 9ddb61b
 Spectrum.xaml;
 
 False
