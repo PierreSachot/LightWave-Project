@@ -9,6 +9,9 @@ using System.IO;
 
 namespace Audio_Spectrum_Analyzer
 {
+    /// <summary>
+    /// Classe permettant de générer un effet de cercle avec les basses de la musique en cours de lecture.
+    /// </summary>
     class Circle : IEffect
     {
         //fractal elements
@@ -42,13 +45,22 @@ namespace Audio_Spectrum_Analyzer
             increment = INCREMENT_SIZE;
         }
 
-        public static Circle FractalFactory(Panel myPanel)
+        /// <summary>
+        /// Permet de générer une instance unique de cercle.
+        /// </summary>
+        /// <param name="myPanel">Panel sur lequel afficher le cercle</param>
+        /// <returns>retourne l'instance du cercle</returns>
+        public static Circle CircleFactory(Panel myPanel)
         {
             if (singleton == null)
                 singleton = new Circle(myPanel);
             return singleton;
         }
 
+        /// <summary>
+        /// Permet de générer un cercle d'une taille entrée
+        /// </summary>
+        /// <param name="size">Taille du cercle à générer</param>
         public void GenerateCircle(int size)
         {
             int i = 1;
@@ -62,7 +74,7 @@ namespace Audio_Spectrum_Analyzer
             {
                 nbDrawnLines = nbColors = size;
                 myPen.Width = 3;
-                for (i = i; i < size % 10; i++)
+                for (i = 0; i < size % 10; i++)
                 {
                     myPen = new Pen(GenerateColor(i), 5 * i);
                     // Create rectangle for circle.
@@ -86,11 +98,20 @@ namespace Audio_Spectrum_Analyzer
             myPanel.ResumeLayout();
         }
 
+        /// <summary>
+        /// Permet de générer un dégradé de couleur en fonction du paramètre index.
+        /// </summary>
+        /// <param name="index">index actuel de l'affichage</param>
+        /// <returns>Couleur générée</returns>
         private Color GenerateColor(int i)
         {
             return Color.FromArgb(255, i * 255 / nbColors, 0);
         }
 
+        /// <summary>
+        /// Implémentation de l'interface, génère une fractal en fonction de la musique.
+        /// </summary>
+        /// <param name="size">Taille de la fractal à générer</param>
         public void GenerateEffect(int size)
         {
             if(size>5)

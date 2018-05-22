@@ -13,9 +13,11 @@ using System.Threading;
 
 namespace Audio_Spectrum_Analyzer
 {
-    class TransitShockwave : IEffect
+    /// <summary>
+    /// Classe permettant de générer un effet de shockwave avec les basses.
+    /// </summary>
+    class Shockwave : IEffect
     {
-         //Fonctionne uniquement sous windows x86 à causes des librairies directX
         private Video video;
         private string[] shockwavePath;
         private string folderPath = @".\Videos";
@@ -25,10 +27,9 @@ namespace Audio_Spectrum_Analyzer
         private int currentVideo = 0;
         private Panel parent;
         private MainForm parentF;
-        delegate void OwnerDelegation(Video video);
         private System.Windows.Forms.Timer TimerVideo { get; set; }
 
-        public TransitShockwave(MainForm parentF, Panel parent, System.Windows.Forms.Timer parentTimer)
+        public Shockwave(MainForm parentF, Panel parent, System.Windows.Forms.Timer parentTimer)
         {
             isDone = true;
             this.parentF = parentF;
@@ -55,6 +56,10 @@ namespace Audio_Spectrum_Analyzer
             }
         }
 
+        /// <summary>
+        /// Implémentation de l'interface, lis une shockwave  lors d'une basse.
+        /// </summary>
+        /// <param name="size"></param>
         public void GenerateEffect(int size)
         {
             if (size > 40 && isDone)
@@ -63,6 +68,9 @@ namespace Audio_Spectrum_Analyzer
             }
         }
 
+        /// <summary>
+        /// Permet de lire un fichier vidéo et de le lire sur le panel de la MainForm
+        /// </summary>
         public void playVideo()
         {
             isDone = false;
@@ -87,6 +95,9 @@ namespace Audio_Spectrum_Analyzer
             });
         }
 
+        /// <summary>
+        /// Permet de passer à la vidéo suivante chargée dans la liste.
+        /// </summary>
         private void NextVideo()
         {
             int index = currentVideo;
@@ -95,20 +106,6 @@ namespace Audio_Spectrum_Analyzer
                 index = 0;
             selectedIndex = index;
             currentVideo = index;
-        }
-
-        private void btnPlayPause_Click(object sender, EventArgs e)
-        {
-            if (!video.Playing)
-            {
-                video.Play();
-                TimerVideo.Enabled = true;
-            }
-            else if (video.Playing)
-            {
-                video.Pause();
-                TimerVideo.Enabled = false;
-            }
         }
     }
 }
