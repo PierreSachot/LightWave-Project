@@ -114,7 +114,13 @@ namespace Audio_Spectrum_Analyzer
         public void SetVideoOwner(Video v)
         {
             if(v != null)
+            {
                 v.Owner = panelEffect;
+                Point pt = panelNavigation.PointToScreen(new Point(0, 0));
+                panelNavigation.Parent = this;
+                panelNavigation.Location = this.PointToClient(pt);
+                panelNavigation.BringToFront();
+            }
         }
 
 
@@ -164,7 +170,7 @@ namespace Audio_Spectrum_Analyzer
                     panelEffect.Show();
                     break;
                 case SHOCKWAVE_MENU:
-                    CurrentEffect = new Shockwave(this, panelEffect, timer2);
+                    CurrentEffect = Shockwave.ShockwaveFactory(this, timer2);
                     timer1.Enabled = true;
                     analyzer.DisplayEnable = true;
                     analyzer.Enable = true;

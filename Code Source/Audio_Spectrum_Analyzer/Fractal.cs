@@ -50,7 +50,7 @@ namespace Audio_Spectrum_Analyzer
         /// <param name="_increment">Taille a incrémenter à chaque lignes</param>
         /// <param name="_numberOfLines">Nombre de lignes à générer</param>
         /// <param name="_length">Longueur initial de la fractal</param>
-        public void generateFractal(int _angle, int _increment, int _numberOfLines, int _length)
+        public void GenerateFractal(int _angle, int _increment, int _numberOfLines, int _length)
         {
             angle = _angle;
             changeAngle = angle;
@@ -126,7 +126,7 @@ namespace Audio_Spectrum_Analyzer
         /// <param name="size">Taille de la fractal à générer</param>
         public void GenerateEffect(int size)
         {
-            generateFractal(192, 1, size, 10);
+            GenerateFractal(192, 1, size, 10);
         }
     }
 }

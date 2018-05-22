@@ -14,6 +14,9 @@ using NAudio.CoreAudioApi;
 
 namespace Audio_Spectrum_Analyzer
 {
+    /// <summary>
+    /// Classe Analyzer permettant d'analyser le son sortant de la carte son
+    /// </summary>
     public class Analyzer
     {
         private bool _enable;               //enabled status
@@ -37,10 +40,10 @@ namespace Audio_Spectrum_Analyzer
         private float[] _freqBand = new float[8];
 
 
-        // fonction qui utilise la fonction système waveOutGetVolume et qui renvoie un tableau de deux entiers : [volumeGauche, volumeDroit]
-
-        //ctor
-
+        /// <summary>
+        /// Constructeur de l'analyzer en fournissant la form principale afin de générer les affichages.
+        /// </summary>
+        /// <param name="main">Form principale</param>
         public Analyzer(MainForm main)
         {
 
@@ -50,7 +53,7 @@ namespace Audio_Spectrum_Analyzer
             _hanctr = 0;
             _t = new DispatcherTimer();
             _t.Tick += _t_Tick;
-            _t.Interval = TimeSpan.FromMilliseconds(25); //40hz refresh rate//25 //a changer ??
+            _t.Interval = TimeSpan.FromMilliseconds(15);
             _t.IsEnabled = false;
             _l = null;
             _r = null;
@@ -64,12 +67,21 @@ namespace Audio_Spectrum_Analyzer
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
 
 
-            t.Interval = 15000; // specify interval time as you want
+            t.Interval = 15000; // rafraichissement du volume audio toutes les 15 secondes.
             t.Tick += new EventHandler(timer_Tick);
             t.Start();
             Init();
         }
 
+        /// <summary>
+        /// Permet de créer un analyzer en fournissant également plus de paramètres pour afficher les courbes des fréquences.
+        /// </summary>
+        /// <param name="parent">Form principale</param>
+        /// <param name="left">Progress bar pour afficher le volume sonore à gauche</param>
+        /// <param name="right">Progress bar pour afficher le volume sonore à droite</param>
+        /// <param name="spectrum">Spectrum pour afficher les fréquences</param>
+        /// <param name="devicelist">Liste des appareils audios</param>
+        /// <param name="chart">Chart pour afficher les fréquences</param>
         public Analyzer(MainForm parent, ProgressBar left, ProgressBar right, Spectrum spectrum, ComboBox devicelist, Chart chart)
         {
             _fft = new float[8192];
@@ -119,32 +131,12 @@ namespace Audio_Spectrum_Analyzer
             Init();
             
         }
-
-        void MakeFrequencyBands()
-        {
-            /*
-             * 22050 Hz / 8192 bands = 2.69 Hz / sample
-             * 20-60 hz
-             * 60-250 hz
-             * 250 - 500 hz
-             * 500 - 2000 hz
-             * 2000 - 4000 hz
-             * 4000 - 6000 hz
-             * 6000 - 20000 hz
-             * 
-             * 0 - 23 = 61.8 hz
-             * 1
-             * 2
-             * 3
-             * 4
-             * 5
-             * 6
-             * 7
-             * 
-             */
-        }
-
-
+        
+        /// <summary>
+        /// Permet de mettre à jour le niveau sonore
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
             _soundLevel = GetSoundLevel();
@@ -154,8 +146,10 @@ namespace Audio_Spectrum_Analyzer
 
         // flag for display enable
         public bool DisplayEnable { get; set; }
-
-        //flag for enabling and disabling program functionality
+        
+        /// <summary>
+        /// Flag permettant d'activer et désactiver les fonctionnalités de l'Analyzer
+        /// </summary>
         public bool Enable
         {
             get { return _enable; }
@@ -207,6 +201,10 @@ namespace Audio_Spectrum_Analyzer
             if (!result) throw new Exception("Init Error");
         }
 
+        /// <summary>
+        /// Permet de récupérer le niveau sonore
+        /// </summary>
+        /// <returns>float représentant le niveau sonore</returns>
         private float GetSoundLevel()
         {
             MMDeviceEnumerator devEnum = new MMDeviceEnumerator();
@@ -214,7 +212,11 @@ namespace Audio_Spectrum_Analyzer
             return defaultDevice.AudioEndpointVolume.MasterVolumeLevelScalar;
         }
 
-        //timer 
+        /// <summary>
+        /// Permet d'ajouter les nouvelles données audios
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void _t_Tick(object sender, EventArgs e)
         {
             int ret = BassWasapi.BASS_WASAPI_GetData(_fft, (int)BASSData.BASS_DATA_FFT8192);  //get ch.annel fft data
@@ -243,11 +245,13 @@ namespace Audio_Spectrum_Analyzer
                 _spectrumdata.Add((byte)y);
             }
 
+            //permet de générer l'affichage de l'effet
             if (DisplayEnable) _spectrum.Set(_spectrumdata);
             for (int i = 0; i < _spectrumdata.ToArray().Length; i++)
             {
                 if (i == 18)
                 {
+                    //on calcul la moyenne sur les points de 0 à 20
                     parent.GenerateEffect(3 * (int)GetAverage(0, 20));
                 }
                 try
@@ -299,6 +303,12 @@ namespace Audio_Spectrum_Analyzer
 
         }
 
+        /// <summary>
+        /// Permet de calculer la moyenne sur les positions start à stop
+        /// </summary>
+        /// <param name="start">Position de départ à calculer</param>
+        /// <param name="stop">Position de fin</param>
+        /// <returns></returns>
         private float GetAverage(int start, int stop)
         {
             float average = 0;
@@ -307,18 +317,22 @@ namespace Audio_Spectrum_Analyzer
             return average/(stop-start);
         }
 
-        // WASAPI callback, required for continuous recording
+        /// <summary>
+        /// WASAPI callback, required for continuous recording
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="length"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private int Process(IntPtr buffer, int length, IntPtr user)
         {
             return length;
         }
 
-        public void setParent(MainForm parent)
-        {
-            this.parent = parent;
-        }
-
-        //cleanup
+        
+        /// <summary>
+        /// Permet de remettre à zéro.
+        /// </summary>
         public void Free()
         {
             BassWasapi.BASS_WASAPI_Free();

@@ -76,7 +76,7 @@ namespace Audio_Spectrum_Analyzer
                 myPen.Width = 3;
                 for (i = 0; i < size % 10; i++)
                 {
-                    myPen = new Pen(GenerateColor(i), 5 * i);
+                    myPen = new Pen(GenerateColor(i), i);
                     // Create rectangle for circle.
                     increment += i * 5;
                     Rectangle rect = new Rectangle((myPanel.Width / 2) - (increment / 2), (myPanel.Height / 2) - (increment / 2), increment, increment);

@@ -25,16 +25,14 @@ namespace Audio_Spectrum_Analyzer
         private bool isDone;
         private List<string> lstVideos;
         private int currentVideo = 0;
-        private Panel parent;
         private MainForm parentF;
+        private static Shockwave singleton;
         private System.Windows.Forms.Timer TimerVideo { get; set; }
 
-        public Shockwave(MainForm parentF, Panel parent, System.Windows.Forms.Timer parentTimer)
+        private Shockwave(MainForm parentF, System.Windows.Forms.Timer parentTimer)
         {
             isDone = true;
             this.parentF = parentF;
-            parent.BackColor = Color.Black;
-            this.parent = parent;
             TimerVideo = parentTimer;
             lstVideos = new List<string>();
             try
@@ -57,6 +55,20 @@ namespace Audio_Spectrum_Analyzer
         }
 
         /// <summary>
+        /// Permet de fabriquer une instance unique de la shockwave
+        /// </summary>
+        /// <param name="parentF">Form parente</param>
+        /// <param name="parent">Panel parent</param>
+        /// <param name="parentTimer">Timer de la form parente</param>
+        /// <returns></returns>
+        public static Shockwave ShockwaveFactory(MainForm parentF, System.Windows.Forms.Timer parentTimer)
+        {
+            if (singleton == null)
+                singleton = new Shockwave(parentF, parentTimer);
+            return singleton;
+        }
+
+        /// <summary>
         /// Implémentation de l'interface, lis une shockwave  lors d'une basse.
         /// </summary>
         /// <param name="size"></param>
@@ -64,14 +76,14 @@ namespace Audio_Spectrum_Analyzer
         {
             if (size > 40 && isDone)
             {
-                new Thread(() => playVideo()).Start();
+                new Thread(() => PlayVideo()).Start();
             }
         }
 
         /// <summary>
         /// Permet de lire un fichier vidéo et de le lire sur le panel de la MainForm
         /// </summary>
-        public void playVideo()
+        public void PlayVideo()
         {
             isDone = false;
             selectedIndex = currentVideo;
