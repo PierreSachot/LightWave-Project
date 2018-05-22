@@ -70,28 +70,30 @@ namespace Audio_Spectrum_Analyzer
             }
             myPanel.SuspendLayout();
             graphics = myPanel.CreateGraphics();
-            if(nbDrawnLines !=size && size > 2)
+            myPanel.Refresh();
+            myPen.Color = Color.White;
+            Rectangle rect = new Rectangle(myPanel.Width / 2 - 50, myPanel.Height / 2 - 50, startSize, startSize);
+            myPen.Width = 10;
+            graphics.DrawEllipse(myPen, rect);
+            graphics.DrawImage(img, rect);
+            if (nbDrawnLines !=size && size > 2)
             {
-                nbDrawnLines = nbColors = size;
-                myPen.Width = 3;
+                nbColors = size % 10;
+                nbDrawnLines = size;
                 for (i = 0; i < size % 10; i++)
                 {
+                    myPen.Width = i*3;
                     myPen = new Pen(GenerateColor(i), i);
                     // Create rectangle for circle.
                     increment += i * 5;
-                    Rectangle rect = new Rectangle((myPanel.Width / 2) - (increment / 2), (myPanel.Height / 2) - (increment / 2), increment, increment);
+                    Rectangle rect2 = new Rectangle((myPanel.Width / 2) - (increment / 2), (myPanel.Height / 2) - (increment / 2), increment, increment);
                     // Draw circle.
-                    graphics.DrawEllipse(myPen, rect);
+                    graphics.DrawEllipse(myPen, rect2);
                 }
                 Thread.Sleep(20);
             }   
             else
             {
-                myPanel.Refresh();
-                myPen.Color = Color.White;
-                Rectangle rect = new Rectangle(myPanel.Width / 2 - 50, myPanel.Height / 2 - 50, startSize, startSize);
-                myPen.Width = 10;
-                graphics.DrawEllipse(myPen, rect);
                 //graphics.DrawImage(img, rect);
                 increment = INCREMENT_SIZE;
             }
@@ -114,7 +116,7 @@ namespace Audio_Spectrum_Analyzer
         /// <param name="size">Taille de la fractal à générer</param>
         public void GenerateEffect(int size)
         {
-            if(size>5)
+            if(size>20)
              GenerateCircle(size);
         }
     }
