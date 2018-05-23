@@ -140,6 +140,23 @@ namespace Audio_Spectrum_Analyzer
             panelSize = new Size(mainPanel.Width, mainPanel.Height);
             timer1.Enabled = true;
             panelEffect.Hide();
+            this.SizeChanged += new EventHandler(delegate (Object o, EventArgs a)
+            {
+                RefreshPanelSize();
+            });
+        }
+
+        private void RefreshPanelSize()
+        {
+            panelEffect.Refresh();
+            Pen myPen = new Pen(Color.Blue);
+            Point point = new Point(panelEffect.Size.Height, panelEffect.Size.Width);
+            Point[] points =
+            {
+                new Point(panelEffect.Size.Width-100, panelEffect.Size.Height-100),
+                 new Point(panelEffect.Size.Width, panelEffect.Size.Height),
+            };
+            panelEffect.CreateGraphics().DrawLines(myPen, points);
         }
 
         public MainForm()

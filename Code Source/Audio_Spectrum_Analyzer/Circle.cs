@@ -31,11 +31,11 @@ namespace Audio_Spectrum_Analyzer
             this.myPanel = myPanel;
             this.myPanel.BackColor = Color.Black;
             this.myPen.Width = 1;
-            graphics = myPanel.CreateGraphics();
             isRainbow = false;
+            graphics = myPanel.CreateGraphics();
             startSize = 100;
             nbDrawnLines = 0;
-            FileStream fs = new FileStream(@"E:\ENSC\S6\TransDisciplinaire\LightWave-Project\Logo\logo2.png", FileMode.Open);
+            FileStream fs = new FileStream(@".\Logo\logo2.png", FileMode.Open);
             img = Image.FromStream(fs);
             fs.Close();
             myPen.Color = Color.White;
@@ -63,13 +63,13 @@ namespace Audio_Spectrum_Analyzer
         /// <param name="size">Taille du cercle à générer</param>
         public void GenerateCircle(int size)
         {
+            graphics = myPanel.CreateGraphics();
             int i = 1;
             if(size > nbDrawnLines)
             {
                 i = nbDrawnLines;
             }
             myPanel.SuspendLayout();
-            graphics = myPanel.CreateGraphics();
             myPanel.Refresh();
             myPen.Color = Color.White;
             Rectangle rect = new Rectangle(myPanel.Width / 2 - 50, myPanel.Height / 2 - 50, startSize, startSize);
